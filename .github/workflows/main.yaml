@@ -27,7 +27,7 @@ jobs:
       - name: Sending message to slack workflow
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
-        with:git
+        with:
           payload: |
             {
               "text": "SA54 Submission",
