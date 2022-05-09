@@ -36,11 +36,11 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Name: Gaw Yan Heng \n Matriculation: A0249477L \n Email: reach.e0941670@u.nus.edu \n Repo: ${{github.repositoryUrl}} \n Image Name: gavingyh/randnum:v1.1.1 \n Image url: https://hub.docker.com/repository/docker/gavingyh/randnum"
+                    "text": "Name: Gaw Yan Heng \n Matriculation: A0249477L \n Email: e0941670@u.nus.edu \n Repo: ${{github.repositoryUrl}} \n Image Name: gavingyh/randnum:v1.1.1 \n Image url: https://hub.docker.com/repository/docker/gavingyh/randnum"
                   }
                 }
               ]
             }
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_TEST_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
