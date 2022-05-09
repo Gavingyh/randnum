@@ -22,12 +22,12 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: gavingyh/randnum:ref
+          tags: gavingyh/randnum:v1.1.1
 
       - name: Sending message to slack workflow
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
-        with:
+        with:git
           payload: |
             {
               "text": "SA54 Submission",
@@ -36,7 +36,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Name: Gaw Yan Heng \n Matriculation: A0249477L \n Email: reach.e0941670@u.nus.edu \n Repo: ${{github.repositoryUrl}} \n Image Name: gavingyh/randnum:ref \n Image url: https://hub.docker.com/repository/docker/gavingyh/randnum"
+                    "text": "Name: Gaw Yan Heng \n Matriculation: A0249477L \n Email: reach.e0941670@u.nus.edu \n Repo: ${{github.repositoryUrl}} \n Image Name: gavingyh/randnum:v1.1.1 \n Image url: https://hub.docker.com/repository/docker/gavingyh/randnum"
                   }
                 }
               ]
