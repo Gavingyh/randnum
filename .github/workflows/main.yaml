@@ -1,4 +1,4 @@
-name: Test
+name: CICD Workshop
 on:
   release:
     types: [published]
@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: "v1.1.1"
+          ref: "v1.1"
 
       - name: Docker Login
         uses: docker/login-action@v1
@@ -22,7 +22,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: gavingyh/randnum:v1.1.1
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/randnum:v1.1
 
       - name: Sending message to slack workflow
         id: slack
@@ -36,7 +36,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Name: Gaw Yan Heng \n Matriculation: A0249477L \n Email: e0941670@u.nus.edu \n Repo: ${{github.repositoryUrl}} \n Image Name: gavingyh/randnum:v1.1.1 \n Image url: https://hub.docker.com/repository/docker/gavingyh/randnum"
+                    "text": "Name: ${{secrets.MY_NAME}} \n Matriculation:  ${{secrets.MATRICULATION}} \n Email: ${{secrets.EMAIL}} \n Repo: ${{github.repositoryUrl}} \n Image Name: gavingyh/randnum:v1.1 \n Image url: ${{secrets.DOCKER_IMG_URL}}"
                   }
                 }
               ]
