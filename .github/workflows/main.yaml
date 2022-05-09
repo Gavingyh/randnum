@@ -1,0 +1,46 @@
+name: Test
+on:
+  release:
+    types: [published]
+
+jobs:
+  test_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to release
+        uses: actions/checkout@v3
+        with:
+          ref: "ref"
+
+      - name: Docker Login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: gavingyh/randnum:ref
+
+      - name: Sending message to slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          payload: |
+            {
+              "text": "SA54 Submission",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Name: Gaw Yan Heng \n Matriculation: A0249477L \n Email: reach.e0941670@u.nus.edu \n Repo: ${{github.repositoryUrl}} \n Image Name: gavingyh/randnum:ref \n Image url: https://hub.docker.com/repository/docker/gavingyh/randnum"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_TEST_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
