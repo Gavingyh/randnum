@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: "v1.2"
+          ref: ${{github.ref_name}}
 
       - name: Docker Login
         uses: docker/login-action@v1
@@ -18,13 +18,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push Docker images
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/randnum:v1.2
 
-      - name: Sending message to slack workflow
+      - name: Send custon JSON data to slack workflow
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
         with:
@@ -36,7 +36,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Name: ${{secrets.MY_NAME}} \n Matriculation:  ${{secrets.MATRICULATION}} \n Email: ${{secrets.EMAIL}} \n Repo: ${{github.repositoryUrl}} \n Image Name: gavingyh/randnum:v1.2 \n Image url: ${{secrets.DOCKER_IMG_URL}}"
+                    "text": "Name: ${{secrets.MY_NAME}} \n Matriculation:  ${{secrets.MATRICULATION}} \n Email: ${{secrets.EMAIL}} \n Repo: ${{github.repositoryUrl}} \n Image Name: gavingyh/randnum:${{github.ref_name}} \n Image url: ${{secrets.DOCKER_IMG_URL}}"
                   }
                 }
               ]
